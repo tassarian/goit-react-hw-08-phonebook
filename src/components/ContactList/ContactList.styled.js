@@ -10,7 +10,6 @@ export const StyledList = styled.ul`
 export const StyledInput = styled.input`
 	display: inline-block;
 	margin-bottom: 20px;
-	margin-left: 44px;
 `;
 
 export const StyledItem = styled.li`
@@ -33,4 +32,10 @@ export const StyledButton = styled.button`
 	&:active {
 		background-color: black;
 	}
+`;
+
+export const StyledBox = styled.div`
+	display: flex;
+	justify-content: center;
+	align-items: center;
 `;

@@ -50,11 +50,9 @@ const authSlice = createSlice({
 				state.isLogin = false;
 			})
 			.addCase(refreshThunk.fulfilled, (state, { payload }) => {
-				state.user = {
-					name: payload.user.name,
-					email: payload.user.email,
-				};
+				state.user = payload;
 				state.isLogin = true;
+				console.log(payload);
 			})
 			.addMatcher(
 				action => action.type.endsWith('/rejected'),

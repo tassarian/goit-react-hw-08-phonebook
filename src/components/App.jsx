@@ -17,7 +17,7 @@ const RegistrationPage = lazy(() =>
 const App = () => {
 	const dispatch = useDispatch();
 	useEffect(() => {
-		dispatch(refreshThunk);
+		dispatch(refreshThunk());
 	}, [dispatch]);
 
 	const ewq = useSelector(qwe);

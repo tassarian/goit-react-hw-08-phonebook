@@ -1,18 +1,32 @@
 import { Button, Input, StyledForm } from './Form.styled';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addContactThunk } from 'redux/contacts/operations';
+import { selectContacts } from 'redux/selectors';
 
 export const Form = () => {
 	const dispatch = useDispatch();
+	const contacts = useSelector(selectContacts);
 
 	const handleSubmit = e => {
 		e.preventDefault();
 		const form = e.target;
+
 		const contact = {
 			name: form.elements.name.value,
 			number: form.elements.number.value,
 		};
-		dispatch(addContactThunk(contact));
+		if (
+			contacts.find(
+				el => el.name === contact.name || el.number === contact.number
+			)
+		) {
+			alert(
+				`${contact.name} or ${contact.number} is already in contacts!`
+			);
+		} else {
+			dispatch(addContactThunk(contact));
+		}
+
 		form.reset();
 	};
 

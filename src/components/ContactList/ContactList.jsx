@@ -1,4 +1,5 @@
 import {
+	StyledBox,
 	StyledButton,
 	StyledInput,
 	StyledItem,
@@ -25,11 +26,13 @@ export const ContactList = () => {
 
 	return (
 		<>
-			<StyledInput
-				type="text"
-				placeholder="Enter name for search here"
-				onChange={e => dispatch(setFilter(e.target.value))}
-			/>
+			<StyledBox>
+				<StyledInput
+					type="text"
+					placeholder="Enter name for search here"
+					onChange={e => dispatch(setFilter(e.target.value))}
+				/>
+			</StyledBox>
 			<StyledList>
 				{filteredContacts.length > 0 &&
 					filteredContacts.map(el => {
