@@ -1,52 +1,32 @@
 import { useDispatch } from 'react-redux';
 import { registerThunk } from 'redux/auth/operations';
 import { Button, Input, InputTitle, StyledForm } from './RegisterForm.styled';
-import { useState } from 'react';
 
 export const RegisterForm = () => {
-	const [email, setEmail] = useState('');
-	const [name, setName] = useState('');
-	const [password, setPassword] = useState('');
 	const dispatch = useDispatch();
 
 	const handleSubmit = e => {
 		e.preventDefault();
+		const form = e.currentTarget;
 		const userData = {
-			email,
-			name,
-			password,
+			email: form.elements.email.value,
+			name: form.elements.name.value,
+			password: form.elements.password.value,
 		};
 		dispatch(registerThunk(userData));
-		setEmail('');
-		setName('');
-		setPassword('');
+		form.reset();
 	};
 
 	return (
 		<StyledForm onSubmit={handleSubmit}>
 			<InputTitle htmlFor="email">email</InputTitle>
-			<Input
-				type="email"
-				name="email"
-				value={email}
-				onChange={e => setEmail(e.target.value)}
-			/>
+			<Input type="email" name="email" />
 
 			<InputTitle htmlFor="name">name</InputTitle>
-			<Input
-				type="text"
-				name="name"
-				value={name}
-				onChange={e => setName(e.target.value)}
-			/>
+			<Input type="text" name="name" />
 
 			<InputTitle htmlFor="password">password</InputTitle>
-			<Input
-				type="password"
-				name="password"
-				value={password}
-				onChange={e => setPassword(e.target.value)}
-			/>
+			<Input type="password" name="password" />
 
 			<Button type="submit">Sign Up</Button>
 		</StyledForm>

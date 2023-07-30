@@ -1,41 +1,28 @@
 import { useDispatch } from 'react-redux';
 import { loginThunk } from 'redux/auth/operations';
 import { Button, Input, InputTitle, StyledForm } from './LoginForm.styled';
-import { useState } from 'react';
 
 export const LoginForm = () => {
 	const dispatch = useDispatch();
-	const [email, setEmail] = useState('');
-	const [password, setPassword] = useState('');
 
 	const handleSubmit = e => {
 		e.preventDefault();
+		const form = e.currentTarget;
 		const userData = {
-			email,
-			password,
+			email: form.elements.email.value,
+			password: form.elements.password.value,
 		};
 		dispatch(loginThunk(userData));
-		setEmail('');
-		setPassword('');
+		form.reset();
 	};
 
 	return (
 		<StyledForm onSubmit={handleSubmit}>
 			<InputTitle htmlFor="email">email</InputTitle>
-			<Input
-				type="email"
-				name="email"
-				value={email}
-				onChange={e => setEmail(e.target.value)}
-			/>
+			<Input type="email" name="email" />
 
 			<InputTitle htmlFor="password">password</InputTitle>
-			<Input
-				type="password"
-				name="password"
-				value={password}
-				onChange={e => setPassword(e.target.value)}
-			/>
+			<Input type="password" name="password" />
 
 			<Button type="submit">Log In</Button>
 		</StyledForm>
