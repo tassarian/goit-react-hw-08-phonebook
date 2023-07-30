@@ -23,7 +23,7 @@ export const RegisterForm = () => {
 	};
 
 	return (
-		<StyledForm onChange={handleSubmit}>
+		<StyledForm onSubmit={handleSubmit}>
 			<InputTitle htmlFor="email">email</InputTitle>
 			<Input
 				type="email"
