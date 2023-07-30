@@ -6,9 +6,9 @@ import {
 } from './ContactList.styled';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectContacts, selectFilter } from 'redux/selectors';
-import { setFilter } from 'redux/filterSlice';
 import { useEffect } from 'react';
-import { deleteContactThunk, fetchContacts } from 'redux/operations';
+import { setFilter } from 'redux/contacts/slice';
+import { deleteContactThunk, fetchContacts } from 'redux/contacts/operations';
 
 export const ContactList = () => {
 	const dispatch = useDispatch();

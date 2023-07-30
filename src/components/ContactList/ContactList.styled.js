@@ -10,6 +10,7 @@ export const StyledList = styled.ul`
 export const StyledInput = styled.input`
 	display: inline-block;
 	margin-bottom: 20px;
+	margin-left: 44px;
 `;
 
 export const StyledItem = styled.li`

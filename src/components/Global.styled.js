@@ -14,4 +14,7 @@ export const Global = createGlobalStyle`
     h2{
         margin-bottom: 20px;
     }
+    a{
+        text-decoration: none;
+    }
 `;

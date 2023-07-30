@@ -1,70 +1,38 @@
-import { nanoid } from 'nanoid';
-import { Button, Input, InputTitle, StyledForm } from './Form.styled';
-import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { selectContacts } from 'redux/selectors';
-import { addContactThunk } from 'redux/operations';
+import { Button, Input, StyledForm } from './Form.styled';
+import { useDispatch } from 'react-redux';
+import { addContactThunk } from 'redux/contacts/operations';
 
 export const Form = () => {
 	const dispatch = useDispatch();
-	const contacts = useSelector(selectContacts);
 
-	const [name, setName] = useState('');
-	const [number, setNumber] = useState('');
-
-	const onNumberChange = e => {
-		setNumber(e.target.value);
-	};
-
-	const onNameChange = e => {
-		setName(e.target.value);
-	};
-
-	const onFormSubmit = e => {
+	const handleSubmit = e => {
 		e.preventDefault();
-		const existingContact = contacts.find(
-			contact =>
-				contact.name.toLowerCase() === name.toLowerCase() ||
-				contact.number === number.toLowerCase()
-		);
-		if (existingContact) {
-			alert(`${name} or ${number} is already in contacts`);
-			setName('');
-			setNumber('');
-		} else {
-			dispatch(
-				addContactThunk({
-					id: nanoid(),
-					name,
-					number,
-				})
-			);
-			setName('');
-			setNumber('');
-		}
+		const form = e.target;
+		const contact = {
+			name: form.elements.name.value,
+			number: form.elements.number.value,
+		};
+		dispatch(addContactThunk(contact));
+		form.reset();
 	};
 
 	return (
-		<StyledForm onSubmit={onFormSubmit}>
-			<InputTitle>Name</InputTitle>
+		<StyledForm onSubmit={handleSubmit}>
+			<label>name</label>
 			<Input
 				type="text"
 				name="name"
 				pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
 				title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
 				required
-				onChange={onNameChange}
-				value={name}
 			/>
-			<InputTitle>Number</InputTitle>
+			<label>number</label>
 			<Input
 				type="tel"
 				name="number"
 				pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
 				title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
 				required
-				onChange={onNumberChange}
-				value={number}
 			/>
 			<Button type="submit">Add contact</Button>
 		</StyledForm>
