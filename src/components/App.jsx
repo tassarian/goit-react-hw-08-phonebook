@@ -5,7 +5,7 @@ import { PrivateRoute } from './PrivateRoute';
 import { useDispatch, useSelector } from 'react-redux';
 import { refreshThunk } from 'redux/auth/operations';
 import { Layout } from './Layout/Layout';
-import { qwe } from 'redux/selectors';
+import { tokenSelector } from 'redux/selectors';
 
 const HomePage = lazy(() => import('../pages/HomePage/HomePage'));
 const LoginPage = lazy(() => import('../pages/LoginPage/LoginPage'));
@@ -16,12 +16,15 @@ const RegistrationPage = lazy(() =>
 
 const App = () => {
 	const dispatch = useDispatch();
-	useEffect(() => {
-		dispatch(refreshThunk());
-	}, [dispatch]);
+	const token = useSelector(tokenSelector);
 
-	const ewq = useSelector(qwe);
-	console.log(ewq);
+	useEffect(() => {
+		if (token) {
+			dispatch(refreshThunk());
+		}
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [dispatch]);
 
 	return (
 		<Routes>
